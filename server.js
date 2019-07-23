@@ -8,7 +8,7 @@ const mysqlConnection = mysql.createConnection({
   host: '10.9.3.218',
   user: 'TWStudent',
   password: 'TechWorks!',
-  database: 'techworks',
+  database: 'employeedb',
   multipleStatements: true
 });
 
@@ -32,7 +32,7 @@ app.listen(port, () => {
 
 //Get all employees
 app.get('/employees', (req, res) => {
-  mysqlConnection.query('SELECT * FROM Employee', (err, rows, field) => {
+  mysqlConnection.query('SELECT * FROM employee', (err, rows, field) => {
     if (!err) res.send(rows);
     else console.log(err);
   });
@@ -69,22 +69,20 @@ app.post('/employees', (req, res) => {
   CALL EmployeeAddOrEdit(@EmpID,@Name,@EmpCode,@Salary);';
   mysqlConnection.query(
     sql,[emp.EmpID, emp.Name, emp.EmpCode, emp.Salary],
-    [req.params.id],
     (err, rows, field) => {
-      if (!err) res.send(rows);
+      if (!err) res.json("Added Successfully");
       else console.log(err);
     }
   );
 });
 
 //Update an employee
-app.post('/employees', (req, res) => {
+app.put('/employees', (req, res) => {
   let emp = req.body;
   let sql ='SET @EmpID = ?;SET @Name = ?;SET @EmpCode = ?;SET @Salary = ?; \
   CALL EmployeeAddOrEdit(@EmpID,@Name,@EmpCode,@Salary);';
   mysqlConnection.query(
     sql,[emp.EmpID, emp.Name, emp.EmpCode, emp.Salary],
-    [req.params.id],
     (err, rows, field) => {
       if (!err) res.send("Updated Successfully");
       else console.log(err);
