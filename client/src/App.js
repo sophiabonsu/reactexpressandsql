@@ -1,14 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Students from './students/students.jsx';
+import employee from './employee/employee';
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Students />
+        {/* <Students />
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -16,7 +17,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn Reac
-        </a>
+        </a> */}
       </header>
     </div>
   );
